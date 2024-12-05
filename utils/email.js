@@ -73,124 +73,188 @@ const sendEmail = asyncHandler(async (data, req, res) => {
     to: recipients.join(", "), // send to both the main user and the Plus One (if available)
     subject: data.subject, // Subject line
     html: `
-      <html>
-        <head>
-          <style>
-            body {
-              font-family: Arial, sans-serif;
-              background-color: #f0f0f0;
-              padding: 20px;
-            }
-            .email-container {
-              max-width: 600px;
-              margin: 0 auto;
-              background-color: #ffffff;
-              padding: 20px;
-              border-radius: 8px;
-              box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            }
-            .header {
-              text-align: center;
-              margin-bottom: 20px;
-            }
-            .header img {
-              max-width: 200px;
-              height: auto;
-            }
-            .content {
-              margin-bottom: 20px;
-            }
-            .qr-code {
-              text-align: center;
-              margin-top: 20px;
-            }
-            .qr-code img {
-              width: 150px;
-              height: 150px;
-            }
-            .plus-one-section {
-              margin-top: 20px;
-              padding: 10px;
-              background-color: #f9f9f9;
-              border-radius: 8px;
-            }
-            .plus-one-section h4 {
-              margin-top: 0;
-            }
-          </style>
-        </head>
-        <body>
-         <div class="email-container">
-  <div class="header">
-   
-  </div>
-  
-  <div class="content">
-    <h3>🎉 Mediterranean Recreational Center End-Of-Year Party 🎉</h3>
-    <p>Your RSVP has been successfully recorded. Below are the details:</p>
-    
-    <!-- Use a table for better alignment of data -->
-    <table style="width: 100%; border-collapse: collapse;">
-      <tr>
-        <td style="padding: 10px; font-weight: bold;">First Name:</td>
-        <td style="padding: 10px; color: #333;">${data.firstName}</td>
-      </tr>
-      <tr>
-        <td style="padding: 10px; font-weight: bold;">Last Name:</td>
-        <td style="padding: 10px; color: #333;">${data.lastName}</td>
-      </tr>
-      <tr>
-        <td style="padding: 10px; font-weight: bold;">Email:</td>
-        <td style="padding: 10px; color: #333;">${data.email}</td>
-      </tr>
-      <tr>
-        <td style="padding: 10px; font-weight: bold;">Phone:</td>
-        <td style="padding: 10px; color: #333;">${data.phone}</td>
-      </tr>
-      <tr>
-        <td style="padding: 10px; font-weight: bold;">Plus One:</td>
-        <td style="padding: 10px; color: #333;">${data.plusOne}</td>
-      </tr>
-    </table>
+    <html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+      }
 
-    <!-- Plus One Details Section (only if applicable) -->
-    ${
-      data.plusOneDetails
-        ? `
-      <div class="plus-one-section" style="margin-top: 20px; padding: 10px; background-color: #f9f9f9; border-radius: 8px;">
-        <h4>🎉 Plus One Details 🎉</h4>
-        <table style="width: 100%; border-collapse: collapse;">
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .header img {
+        max-width: 200px;
+        height: auto;
+      }
+
+      .content {
+        color: #333;
+        line-height: 1.6;
+      }
+
+      h3 {
+        color: #2d3e50;
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      p {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      table td {
+        padding: 12px;
+        text-align: left;
+        color: #555;
+      }
+
+      table td:first-child {
+        font-weight: bold;
+        color: #2d3e50;
+      }
+
+      .plus-one-section {
+        background-color: #f8f8f8;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 30px;
+      }
+
+      .plus-one-section h4 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #2d3e50;
+      }
+
+      .qr-code {
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .qr-code img {
+        width: 150px;
+        height: 150px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 14px;
+        color: #888;
+      }
+
+      .footer a {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      .footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="header">
+        <img src="https://scontent.fabv6-1.fna.fbcdn.net/v/t39.30808-6/469164791_1104047111728513_4039241009852570437_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGLVd_ok95KgGNsz8c-Bp818TskDgm3ApLxOyQOCbcCkhNH3-WRtp1LnuLjO7xM_5Qkuzc6S6AHD2P9WVusMmP_&_nc_ohc=v1I-bNVEwHoQ7kNvgG-TjwH&_nc_zt=23&_nc_ht=scontent.fabv6-1.fna&_nc_gid=A6YexVH8W2HrNi-JkdwnK6F&oh=00_AYA0j32T6e4-GmDQuQCZPFauJ6aSeiO7kHtEz70aCry3-w&oe=6757BF26" alt="Mediterranean Recreational Center Logo">
+      </div>
+
+      <div class="content">
+        <h3>🎉 Mediterranean Recreational Center End-Of-Year Party 🎉</h3>
+        <p>Your RSVP has been successfully recorded. Below are the details:</p>
+
+        <!-- Use a table for better alignment of data -->
+        <table>
           <tr>
-            <td style="padding: 10px; font-weight: bold;">First Name:</td>
-            <td style="padding: 10px; color: #333;">${data.plusOneDetails.firstname}</td>
+            <td>First Name:</td>
+            <td>${data.firstName}</td>
           </tr>
           <tr>
-            <td style="padding: 10px; font-weight: bold;">Last Name:</td>
-            <td style="padding: 10px; color: #333;">${data.plusOneDetails.lastname}</td>
+            <td>Last Name:</td>
+            <td>${data.lastName}</td>
           </tr>
           <tr>
-            <td style="padding: 10px; font-weight: bold;">Email:</td>
-            <td style="padding: 10px; color: #333;">${data.plusOneDetails.email}</td>
+            <td>Email:</td>
+            <td>${data.email}</td>
           </tr>
           <tr>
-            <td style="padding: 10px; font-weight: bold;">Phone:</td>
-            <td style="padding: 10px; color: #333;">${data.plusOneDetails.phone}</td>
+            <td>Phone:</td>
+            <td>${data.phone}</td>
+          </tr>
+          <tr>
+            <td>Plus One:</td>
+            <td>${data.plusOne}</td>
           </tr>
         </table>
+
+        <!-- Plus One Details Section (only if applicable) -->
+        ${
+          data.plusOneDetails
+            ? `
+            <div class="plus-one-section">
+              <h4>🎉 Plus One Details 🎉</h4>
+              <table>
+                <tr>
+                  <td>First Name:</td>
+                  <td>${data.plusOneDetails.firstname}</td>
+                </tr>
+                <tr>
+                  <td>Last Name:</td>
+                  <td>${data.plusOneDetails.lastname}</td>
+                </tr>
+                <tr>
+                  <td>Email:</td>
+                  <td>${data.plusOneDetails.email}</td>
+                </tr>
+                <tr>
+                  <td>Phone:</td>
+                  <td>${data.plusOneDetails.phone}</td>
+                </tr>
+              </table>
+            </div>
+          `
+            : ""
+        }
+
+        <div class="qr-code">
+          <p>Your unique QR code for this RSVP:</p>
+          <img src="cid:qrcode" alt="RSVP QR Code">
+        </div>
       </div>
-    `
-        : ""
-    }
 
-    <div class="qr-code" style="text-align: center; margin-top: 20px;">
-      <p>Your unique QR code for this RSVP:</p>
-      <img src="cid:qrcode" alt="RSVP QR Code" style="width: 150px; height: 150px;" />
+      <div class="footer">
+        <p>Thank you for your RSVP! We look forward to celebrating with you. For more information, visit our <a href="https://www.mediterraneanrecreation.com">website</a>.</p>
+      </div>
     </div>
-  </div>
-</div>
+  </body>
+</html>
 
-        </body>
-      </html>
     `,
     attachments: [
       {
