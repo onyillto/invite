@@ -249,7 +249,7 @@ const sendEmail = asyncHandler(async (data, req, res) => {
       </div>
 
       <div class="footer">
-        <p>Thank you for your RSVP! We look forward to celebrating with you. For more information, visit our <a href="https://www.mediterraneanrecreation.com">website</a>.</p>
+        <p>Thank you for your RSVP! We look forward to celebrating with you.</p>
       </div>
     </div>
   </body>
