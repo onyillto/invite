@@ -40,15 +40,38 @@ const userSchema = new mongoose.Schema({
     default: null,
   },
 
+  // Optional Plus Two Information
+  plusTwo: {
+    type: {
+      firstname: {
+        type: String,
+      },
+      lastname: {
+        type: String,
+      },
+      email: {
+        type: String,
+      },
+      phone: {
+        type: String,
+      },
+    },
+    // plusTwo is optional, so we make it default to null
+    default: null,
+  },
+
+  // Role of the User
   role: {
     type: String,
-    enum: ["member", "committee"],
-    default: "member",
+    enum: ["member", "committee"], // Restrict to specific roles
+    default: "member", // Default role
   },
+
+  // Action Status
   action: {
     type: String,
-    enum: ["pending", "verified"],
-    default: "pending",
+    enum: ["pending", "verified"], // Define possible statuses
+    default: "pending", // Default status
   },
 });
 
@@ -56,3 +79,4 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
+
